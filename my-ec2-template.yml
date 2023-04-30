@@ -1,0 +1,35 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: > 
+#My Basic EC2 Instance Launched in a Default VPC
+Resources:
+  MyEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0127b2e6f3b9b94d5  # Amazon Linux 2 AMI
+      InstanceType: t2.micro
+      Tags: 
+        - Key: "Name"
+          Value: "racheal"
+
+#Adding a Default VPC
+  MyVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: "10.0.0.0/16"
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+      Tags:
+        - Key: Name
+          Value: "Default VPC"
+
+#Adding an availability zone
+  MySubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: MyVPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone: "us-west-1b"
+      Tags:
+      - Key: "Nme"
+        Value: "My Subnet in us-west-1a"
